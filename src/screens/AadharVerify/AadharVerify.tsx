@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useColorScheme } from 'react-native';
-import { theme, isDarkTheme } from '../Redux/AuthSlice';
-import { Colors, FontSize } from '../constants/Colors';
-import Header from '../constants/Header';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+import { Colors, FontSize } from '../../constants/Colors';
+import Header from '../../constants/Header';
+
 
 const AadharScreen = ({ navigation }: any) => {
   const [isAadhar, setIsAadhar] = useState(true);
@@ -41,7 +42,7 @@ const AadharScreen = ({ navigation }: any) => {
       <View style={styles.topSection}>
 
         <Image
-          source={require('../images/adharotp.png')}
+          source={require('../../images/adharotp.png')}
           style={styles.image}
           resizeMode="cover"
         />
@@ -132,7 +133,7 @@ const AadharScreen = ({ navigation }: any) => {
             } else {
               navigation.navigate('PanVerificationSuccess');
             }
-            navigation.navigate('UserDetail');
+            navigation.navigate('AadharOTP');
           }}
         >
           <Text

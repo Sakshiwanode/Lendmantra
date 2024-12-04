@@ -10,10 +10,11 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useColorScheme } from 'react-native';
-import { theme, isDarkTheme } from '../Redux/AuthSlice';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+import { Colors, FontSize } from '../../constants/Colors';
+import Header from '../../constants/Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Colors, FontSize } from '../constants/Colors';
-import Header from '../constants/Header';
+
 
 const LoanApplyScreen = ({ navigation }: any) => {
   const [loanAmount, setLoanAmount] = useState(40000);
@@ -38,7 +39,7 @@ const LoanApplyScreen = ({ navigation }: any) => {
 
       <View style={styles.topSection}>
         <Image
-          source={require('../images/loanimage.png')}
+          source={require('../../images/loanimage.png')}
           style={styles.image}
           resizeMode="contain"
         />
@@ -138,7 +139,7 @@ const LoanApplyScreen = ({ navigation }: any) => {
               borderColor: isDarkMode ? Colors.blue : Colors.gray,
             },
           ]}
-          onPress={() => navigation.navigate('AadharVerify')}
+          onPress={() => navigation.navigate('AadharNoVerify')}
         >
           <Text
             style={[styles.buttonText, { color: isDarkMode ? Colors.white : Colors.white }]}

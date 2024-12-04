@@ -8,9 +8,10 @@ import {
   useColorScheme,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { theme, isDarkTheme } from '../Redux/AuthSlice'; 
-import { Colors } from '../constants/Colors';
-import Header from '../constants/Header';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+import { Colors,  } from '../../constants/Colors';
+import Header from '../../constants/Header';
+
 
 const BankDetailScreen = ({ navigation }: any) => {
 
@@ -71,12 +72,12 @@ useEffect(() => {
 
         <View>
           <TouchableOpacity
-            style={[styles.moveAheadButton, { backgroundColor: isDarkMode ? Colors.white : Colors.black }]}
+            style={[styles.moveAheadButton, { backgroundColor: isDarkMode ? Colors.primary : Colors.primary }]}
             onPress={() => {
               navigation.navigate('DocumentBank');
             }}>
             <Text
-              style={[styles.moveAheadText, { color: isDarkMode ? Colors.black : Colors.white }]}>
+              style={[styles.moveAheadText, { color: isDarkMode ? Colors.white: Colors.white }]}>
               Move Ahead
             </Text>
           </TouchableOpacity>

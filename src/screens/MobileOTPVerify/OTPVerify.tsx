@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, StatusBar } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useColorScheme } from 'react-native';
-import { theme, isDarkTheme } from '../Redux/AuthSlice';
-import { Colors, FontSize } from '../constants/Colors';
-import Header from '../constants/Header';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+
+import { Colors, FontSize } from '../../constants/Colors';
+import Header from '../../constants/Header';
+
 
 const OTPScreen = ({ navigation }: any) => {
   const [otp, setOtp] = useState(['4', '5', '', '']);
@@ -26,7 +28,7 @@ const OTPScreen = ({ navigation }: any) => {
      
       <View style={styles.topSection}>
         <Image
-          source={require('../images/Otpverify.jpg')}
+          source={require('../../images/Otpverify.jpg')}
           style={styles.image}
           resizeMode="contain"
         />

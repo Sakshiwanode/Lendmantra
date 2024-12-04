@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isDarkTheme, theme } from '../../../Redux/AuthSlice';
 import { Colors, FontSize } from '../../../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import Header from '../../../constants/Header';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}:any) => {
   const dispatch = useDispatch();
   const systemColorScheme = useColorScheme();
   const isDarkMode = useSelector(isDarkTheme);
@@ -26,6 +27,9 @@ const ProfileScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: isDarkMode ? Colors.darkBackground : Colors.lightBackground }]}>
+       <View style={styles.headerWrapper}>
+          <Header navigation={navigation} />
+        </View>
       <View style={[styles.card, { backgroundColor: isDarkMode ? Colors.darkInputBackground : Colors.cardBackground }]}>
         <View style={styles.profileIconWrapper}>
           <Icon name="person" size={80} color={Colors.white} style={styles.profileIcon} />
@@ -61,6 +65,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
+  },
+  headerWrapper: {
+    position: 'absolute', 
+    top: 9,
+    left: 0,
+    right: 0,
   },
   card: {
     borderRadius: 20,

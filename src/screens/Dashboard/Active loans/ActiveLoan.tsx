@@ -332,7 +332,7 @@ const ActiveLoanScreen = ({userName = 'UserName'}) => {
           {
             backgroundColor: isDarkMode
               ? Colors.darkBackground
-              : Colors.lightCardBackground,
+              : Colors.lightBackground,
           },
         ]}>
         <Text
@@ -725,13 +725,15 @@ const styles = StyleSheet.create({
   },
 
   cardContainer: {
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: {width: 0, height: 5},
     elevation: 5,
+    marginVertical:20,
+    marginHorizontal:20,
   },
   historyHeader: {
     fontSize: 18,

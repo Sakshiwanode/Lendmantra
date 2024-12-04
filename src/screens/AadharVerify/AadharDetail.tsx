@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { theme, isDarkTheme } from '../Redux/AuthSlice'; 
-import { Colors } from '../constants/Colors';
-import Header from '../constants/Header';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+import { Colors } from '../../constants/Colors';
+import Header from '../../constants/Header';
 
 const UserDetailScreen = ({ navigation }: any) => {
   
@@ -17,20 +17,21 @@ const UserDetailScreen = ({ navigation }: any) => {
   }, [colorScheme, dispatch]);
 
   const user = {
-    name: "John Doe",
+    name: "Sakshi Wanode",
     phone: "+91 223 344 4454",
     email: "johndoe@example.com",
+    dob: "12/1/2000", 
     aadharOrPan: "Aadhar: 1234 5678 9123",
-    otherDetails: "Loan Status: Applied\nCredit Score: 750\nLoan Amount: ₹1,00,000",
+    address: "123, Main Street, City XYZ, Country ABC",
   };
+
   return (
     <View style={[styles.container, { backgroundColor: isDarkMode ? Colors.darkBackground : Colors.lightBackground }]}>
-       <View style={styles.headerWrapper}>
-          <Header navigation={navigation} />
-        </View>
+      <View style={styles.headerWrapper}>
+        <Header navigation={navigation} />
+      </View>
       <View style={[styles.topSection]}>
-    
-        <Text style={[styles.heading, { color: isDarkMode ? Colors.primary : Colors.primary }]}>User Details</Text>
+        <Text style={[styles.heading, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Aadhar Verified Details</Text>
       </View>
 
       <View style={[styles.infoSection, { backgroundColor: isDarkMode ? Colors.darkInputBackground : Colors.lightInputBackground }]}>
@@ -41,26 +42,28 @@ const UserDetailScreen = ({ navigation }: any) => {
           <Text style={[styles.detailsLabel, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Email Address:</Text>
           <Text style={[styles.detailsText, { color: isDarkMode ? Colors.lightGray : Colors.gray }]}>{user.email}</Text>
 
+          {/* Added Date of Birth */}
+          <Text style={[styles.detailsLabel, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Date of Birth:</Text>
+          <Text style={[styles.detailsText, { color: isDarkMode ? Colors.lightGray : Colors.gray }]}>{user.dob}</Text>
+
           <Text style={[styles.detailsLabel, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Aadhar/PAN Number:</Text>
           <Text style={[styles.detailsText, { color: isDarkMode ? Colors.lightGray : Colors.gray }]}>{user.aadharOrPan}</Text>
 
-          <Text style={[styles.detailsLabel, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Other Details:</Text>
-          <Text style={[styles.detailsText, { color: isDarkMode ? Colors.lightGray : Colors.gray }]}>{user.otherDetails}</Text>
+          {/* Added Address */}
+          <Text style={[styles.detailsLabel, { color: isDarkMode ? Colors.primary : Colors.primary }]}>Address:</Text>
+          <Text style={[styles.detailsText, { color: isDarkMode ? Colors.lightGray : Colors.gray }]}>{user.address}</Text>
         </View>
       </View>
 
       <TouchableOpacity
-        style={[styles.backButton, { backgroundColor: isDarkMode ? Colors.black : Colors.primary,
-          borderColor: isDarkMode ? Colors.blue : Colors.gray,
-         }]}
-        onPress={() => { navigation.navigate('BankDetail') }}
+        style={[styles.backButton, { backgroundColor: isDarkMode ? Colors.black : Colors.primary, borderColor: isDarkMode ? Colors.blue : Colors.gray }]}
+        onPress={() => { navigation.navigate('BankAccountVerify') }}
       >
         <Text style={[styles.backButtonText, { color: Colors.white }]}>Forward</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     left: 0,
     marginTop: -70,
   },
-   headerWrapper: {
+  headerWrapper: {
     position: 'absolute', 
     top: 11,
     left: 0,

@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-nativ
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useColorScheme } from 'react-native';
-import { theme, isDarkTheme } from '../Redux/AuthSlice';
-import { Colors, FontSize } from '../constants/Colors';
-import Header from '../constants/Header';
+import { isDarkTheme, theme } from '../../Redux/AuthSlice';
+import { Colors, FontSize } from '../../constants/Colors';
+import Header from '../../constants/Header';
 
 const ApplicationSubmitScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
