@@ -3,8 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'; 
 
-import { store, persistor } from './src/Redux/Store'; 
-import AppNavigator from './src/navigations/AppNavigator.';
+
+
+import { persistor, store } from './src/Redux/Store';
+import AppNavigator from './src/navigations/AppNavigator';
+
+
 
 const App = () => {
   return (

@@ -1,12 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const EmiCalcultorScreeen = () => {
+const ClosedLoanScreen = () => {
+
+  
   return (
     <View>
-      <Text>Screeen</Text>
+      <Text>ClosedLoan</Text>
     </View>
   )
 }
 
-export default EmiCalcultorScreeen;
+export default ClosedLoanScreen

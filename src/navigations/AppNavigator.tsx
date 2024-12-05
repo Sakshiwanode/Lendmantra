@@ -16,6 +16,7 @@ import MainTabNavigator from './TabNavigator';
 import ApplyNewLoanScreen from '../screens/Dashboard/Home/ApplyNewLoan';
 import LoanApplyScreen from '../screens/Loan Apply/LoanApply';
 import ESignatureScreen from '../screens/Upload Documents/ESignature';
+import YourLoanScreen from '../screens/Dashboard/Active loans/YourLoan';
 
 
 
@@ -104,7 +105,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }} 
         />
 
-
+         <Stack.Screen 
+          name="YourLoan"
+          component={YourLoanScreen} 
+          options={{ headerShown: false }} 
+        />
 
 
       </Stack.Navigator>

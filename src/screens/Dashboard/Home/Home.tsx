@@ -1,20 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   BackHandler,
   StatusBar,
-  FlatList,
   TouchableOpacity,
   Image,
+  FlatList,
+
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {useColorScheme} from 'react-native';
-
-import {Colors, FontSize} from '../../../constants/Colors';
 import {isDarkTheme, theme} from '../../../Redux/AuthSlice';
+import {Colors, FontSize} from '../../../constants/Colors';
+
 
 const HomeScreen = ({userName = 'UserName', navigation}: any) => {
   const dispatch = useDispatch();
@@ -36,22 +37,104 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
     return () => backHandler.remove();
   }, []);
 
-  const renderCard = (item: any, backgroundColor: string) => (
-    <View
-      style={[
-        styles.card,
-        styles.shadow,
-        {backgroundColor},
-      ]}>
-      <Text
+  const loanDraws = [
+    {id: '1', name: 'Personal Loan', status: 'Approved', duration: '12 Months', progress: 75},
+    {id: '2', name: 'Car Loan', status: 'Pending', duration: '6 Months', progress: 50},
+    {id: '3', name: 'Home Loan', status: 'Rejected', duration: '24 Months', progress: 30},
+  ];
+  const renderLoanDrawsCard = ({ item }: any) => {
+    return (
+      <View style={styles.loanDrawCard}>
+        <View style={{ width: 80, height: 80, justifyContent: 'center', alignItems: 'center' }}>
+        
+            size={80} // The size of the circle
+            progress={item.progress / 100} // The progress value (needs to be between 0 and 1)
+            color={Colors.blue} // The color of the progress circle
+            borderWidth={8} // Border thickness
+            shadowColor={Colors.lightGray} // Shadow color of the circle
+            bgColor={isDarkMode ? Colors.darkInputBackground : Colors.cardBackground} // Background color of the circle
+         
+          <Text style={styles.progressText}>{`${item.progress}%`}</Text>
+        </View>
+  
+        <View style={styles.loanDetails}>
+          <Text
+            style={[
+              styles.boldText,
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
+            {item.name}
+          </Text>
+          <Text
+            style={[
+              styles.loanStatusText,
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
+            {item.status}
+          </Text>
+          <Text
+            style={[
+              styles.loanDurationText,
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
+            {item.duration}
+          </Text>
+        </View>
+      </View>
+    );
+  };
+  
+
+  const renderProgressBarDetail = () => {
+    return (
+      <View
         style={[
-          styles.cardText,
-          {color: isDarkMode ? Colors.white : Colors.black},
+          styles.infoCard,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.darkInputBackground
+              : Colors.cardBackground,
+          },
         ]}>
-        Card {item.id}
-      </Text>
-    </View>
-  );
+        <Text
+          style={[
+            styles.cardText,
+            {color: isDarkMode ? Colors.white : Colors.black},
+          ]}>
+          Loan Status Progress
+        </Text>
+        <View style={styles.progressBarContainer}>
+          <View
+            style={[
+              styles.progressBarBackground,
+              {
+                backgroundColor: isDarkMode ? Colors.lightGray : Colors.gray,
+              },
+            ]}
+          />
+          <View
+            style={[
+              styles.progressBar,
+              {
+                backgroundColor: Colors.blue,
+                width: '70%',
+              },
+            ]}
+          />
+        </View>
+        <Text
+          style={[
+            styles.cardText,
+            {color: isDarkMode ? Colors.white : Colors.black},
+          ]}>
+          70% Completed
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -67,7 +150,7 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
             name="menu-outline"
             size={28}
             color={Colors.primary}
-            onPress={() => navigation.toggleDrawer()} 
+            onPress={() => navigation.toggleDrawer()}
           />
           <Text
             style={[
@@ -90,88 +173,163 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
           ]}>
           Lorem ipsum dolor sit amet.
         </Text>
-
-        <View style={[styles.imageCard, styles.shadow]}>
-          <Image
-            source={require('../../../images/home.jpg')}
-            style={styles.smallImage}
-          />
-          <TouchableOpacity style={styles.applyButton}>
-            <Text
-              style={styles.applyButtonText}
-              onPress={() => navigation.navigate('ApplyNewLoan')}>
-              Apply Personal Loan
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.imageCard, styles.shadow]}>
-          <Image
-            source={require('../../../images/home.jpg')}
-            style={styles.smallImage}
-          />
-          <TouchableOpacity style={styles.applyButton}>
-            <Text
-              style={styles.applyButtonText}
-              onPress={() => navigation.navigate('ApplyNewLoan')}>
-              Apply Business Loan
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
 
-      {/* Bottom Section */}
-      <View
+      {/* Loan Cards */}
+      <View style={styles.card}>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.smallCard}>
+            <Text
+              style={[
+                styles.boldText,
+                {color: isDarkMode ? Colors.white : Colors.black},
+              ]}>
+              Personal Loan
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.smallCard}>
+            <Text
+              style={[
+                styles.boldText,
+                {color: isDarkMode ? Colors.white : Colors.black},
+              ]}>
+              Business Loan
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.applyButton}
+          onPress={() => navigation.navigate('YourLoan')} >
+          <Text
+            style={[
+              styles.buttonText,
+              {color: isDarkMode ? Colors.white : Colors.black},
+            
+            ]}>
+              
+            Apply New Loan
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Loan Progress Bar */}
+      {renderProgressBarDetail()}
+
+      {/* Loan Draws */}
+      <Text
         style={[
-          styles.bottomSection,
-          {
-            backgroundColor: isDarkMode
-              ? Colors.darkBackground
-              : Colors.white,
-          },
+          styles.subHeading,
+          {color: isDarkMode ? Colors.white : Colors.darkBackground},
         ]}>
-        <Text
-          style={[
-            styles.loanTypesHeading,
-            {color: isDarkMode ? Colors.white : Colors.black},
-          ]}>
-          Loan Types
-        </Text>
+        Your Active Draws
+      </Text>
 
-        <Text
-          style={[
-            styles.subHeading,
-            {color: isDarkMode ? Colors.white : Colors.black},
-          ]}>
-          Personal Loan
-        </Text>
-        <FlatList
-          data={[{id: '1'}, {id: '2'}, {id: '3'}]} 
-          keyExtractor={(item) => item.id}
-          horizontal 
-          renderItem={({item}) =>
-            renderCard(item, isDarkMode ? Colors.black : Colors.lightGray)
-          }
-          contentContainerStyle={{paddingHorizontal: 10, paddingBottom: 20}}
-          showsHorizontalScrollIndicator={false}
-        />
+      <FlatList
+        data={loanDraws}
+        renderItem={renderLoanDrawsCard}
+        keyExtractor={(item: any) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.loanDrawsList}
+      />
 
-        <Text
-          style={[
-            styles.subHeading,
-            {color: isDarkMode ? Colors.white : Colors.black},
-          ]}>
-          Business Loan
-        </Text>
-        <FlatList
-          data={[{id: '1'}, {id: '2'}, {id: '3'}]} 
-          keyExtractor={(item) => item.id}
-          horizontal 
-          renderItem={({item}) =>
-            renderCard(item, isDarkMode ? Colors.black : Colors.lightGray)
-          }
-          contentContainerStyle={{paddingHorizontal: 10, paddingBottom: 20}}
-        />
-      </View>
+      {/* Other Details */}
+      <Text
+        style={[
+          styles.subHeading,
+          {color: isDarkMode ? Colors.white : Colors.black},
+        ]}>
+        Other Details
+      </Text>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('RepaymentHistory')}>
+        <View style={styles.rows}>
+          <Ionicons
+            name="time-outline"
+            size={30}
+            color={Colors.primary}
+            style={styles.iconLeftclock}
+          />
+          <View style={styles.quickActionText}>
+            <Text
+              style={[
+                styles.boldText,
+                {color: isDarkMode ? Colors.white : Colors.black},
+              ]}>
+              Repayment History
+            </Text>
+            <Text style={[{color: isDarkMode ? Colors.white : Colors.black}]}>
+              View all transactions
+            </Text>
+          </View>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={24}
+            color={Colors.primary}
+          />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('RepaymentHistory')}>
+        <View style={styles.rows}>
+          <Ionicons
+            name="checkmark-circle"
+            size={35}
+            color={Colors.primary}
+            style={styles.iconLeft}
+          />
+          <View style={styles.quickActionText}>
+            <Text
+              style={[
+                styles.boldText,
+                {color: isDarkMode ? Colors.white : Colors.black},
+              ]}>
+              Closed Loans
+            </Text>
+            <Text style={[{color: isDarkMode ? Colors.white : Colors.black}]}>
+              View Closed Loans
+            </Text>
+          </View>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={24}
+            color={Colors.primary}
+          />
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('RepaymentHistory')}>
+        <View style={styles.rows}>
+          <Ionicons
+            name="hand-left"
+            size={30}
+            color={Colors.primary}
+            style={styles.iconLeft}
+          />
+          <View style={styles.quickActionText}>
+            <Text
+              style={[
+                styles.boldText,
+                {color: isDarkMode ? Colors.white : Colors.black},
+              ]}>
+              Upcoming EMi
+            </Text>
+            <Text style={[{color: isDarkMode ? Colors.white : Colors.black}]}>
+              View  Upcoming EMi
+            </Text>
+          </View>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={24}
+            color={Colors.primary}
+          />
+        </View>
+      </TouchableOpacity>
+      
+      
     </View>
   );
 };
@@ -181,87 +339,156 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topSection: {
-    flex: 0.5,
-    padding: 16,
+    padding: 10,
   },
-  headerIcon:{
-    flexDirection: 'row',  
-    top:0,
-    left:0,
-    right:0,bottom:0,}
-  ,
+  headerIcon: {
+    flexDirection: 'row',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   notificationIcon: {
-    padding: 8, 
+    padding: 8,
     position: 'absolute',
     top: -2,
     right: 1,
   },
- 
+
   heading: {
-    marginTop: 20,
-    fontSize: FontSize.heading,
+    marginTop: 25,
+    paddingLeft: 80,
+    fontSize: FontSize.large,
     fontWeight: 'bold',
-    alignContent:'center',
-    
+    alignContent: 'center',
   },
   subText: {
     fontSize: FontSize.medium,
-   marginBottom:10,
-    paddingLeft:80,
-   
-   
-  },
-  imageCard: {
-    alignItems: 'center',
-    marginTop: 16,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  shadow: {
-    shadowColor: Colors.black,
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  smallImage: {
-    width: '100%',
-    height: 80,
-  },
-  applyButton: {
-    backgroundColor: Colors.primary,
-    padding: 8,
-    width: '100%',
-    alignItems: 'center',
-  },
-  applyButtonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-  },
-  bottomSection: {
-    flex: 0.5,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    padding: 16,
-  },
-  loanTypesHeading: {
-    fontSize: FontSize.heading,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subHeading: {
-    fontSize: FontSize.medium,
-    fontWeight: '600',
-    marginBottom: 20,
+    marginBottom: 1,
+    paddingLeft: 90,
   },
   card: {
-    flex: 1,
-    margin: 5,
-    padding: 35,
+    padding:5,
+    paddingBottom: 10,
+    margin: 1,
     borderRadius: 8,
+    backgroundColor: Colors.cardBackground,
+    alignItems: 'center',
+    marginVertical: 4,
+    marginHorizontal: 20,
   },
-  cardText: {
-    textAlign: 'center',
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  smallCard: {
+    margin: 4,
+    padding: 30,
+    borderRadius: 8,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+  },
+  applyButton: {
+    marginTop: 1,
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: FontSize.medium,
     fontWeight: 'bold',
+  },
+  subHeading: {
+   marginBottom:10,
+    paddingLeft: 20,
+    fontSize: FontSize.subHeading,
+    fontWeight: 'bold',
+  },
+  onTrackText: {
+    marginTop: 5,
+    fontSize: FontSize.small,
+  },
+  loanDrawCard: {
+    padding: 16,
+    margin: 8,
+    borderRadius: 8,
+    backgroundColor: Colors.cardBackground,
+    alignItems: 'center',
+    height:180,
+  },
+
+  boldText: {
+    fontWeight: 'bold',
+    fontSize: FontSize.medium,
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    paddingTop:-20,
+  },
+  loanStatusText: {
+    fontSize: FontSize.small,
+  },
+  loanDurationText: {
+    fontSize: FontSize.small,
+  },
+  quickActionText: {
+    marginLeft: -8,
+  },
+  infoCard: {
+    padding: 3,
+    margin: 1,
+    borderRadius: 8,
+    backgroundColor: Colors.cardBackground,
+    alignItems: 'center',
+    marginVertical: 15,
+    marginHorizontal: 20,
+  },
+  progressBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    height: 10,
+    marginTop: 5,
+  },
+  progressBar: {
+    height: 10,
+    borderRadius: 5,
+  },
+  progressBarBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 10,
+    borderRadius: 5,
+  },
+
+  cardText: {
+    fontSize: FontSize.medium,
+    fontWeight: 'bold',
+  },
+  iconLeftclock: {
+    paddingRight: 100,
+  },
+  iconLeft: {
+    paddingRight: 110,
+  },
+  loanDrawsList: {
+    paddingHorizontal: 10,
+  },
+  rows: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  progressText: {
+    fontSize: FontSize.medium,
+    fontWeight: 'bold',
+    color: Colors.blue,
+  },
+  loanDetails: {
+    marginTop: 10,
+    alignItems: 'center',
   },
 });
 
