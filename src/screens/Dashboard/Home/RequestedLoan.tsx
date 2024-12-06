@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const UpcomingEmiScreen = () => {
+const RequestedLoanScreen = () => {
   return (
     <View>
-      <Text>UpcomingEmi</Text>
+      <Text>RequestedLoan</Text>
     </View>
   )
 }
 
-export default UpcomingEmiScreen
+export default RequestedLoanScreen;

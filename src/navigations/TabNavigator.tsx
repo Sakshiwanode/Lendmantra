@@ -3,9 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet, useColorScheme } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/Dashboard/Home/Home';
-
 import ProfileScreen from '../screens/Dashboard/Profile/Profile';
 import ActiveLoanScreen from '../screens/Dashboard/Active loans/ActiveLoan';
+import { Colors } from '../constants/Colors';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -14,11 +15,11 @@ const MainTabNavigator = () => {
   const isDarkMode = colorScheme === 'dark';
 
   const themeColors = {
-    background: isDarkMode ? '#007BFF' : '#007BFF',
-    activeTintColor: '#f9fff6',
-    inactiveTintColor: isDarkMode ? '#2c2929' : '#0e0c0c',
-    wrapperBackground: isDarkMode ? '#0c0c0c' : '#F5F5F5',
-    shadowColor: isDarkMode ? '#000' : '#b97272', 
+    background: isDarkMode ? Colors.lightBackground : Colors.darkBackground,
+    activeTintColor: Colors.blue,
+    inactiveTintColor: isDarkMode ? Colors.black : Colors.white,
+    wrapperBackground: isDarkMode ? Colors.darkBackground : Colors.lightBackground,
+    shadowColor: isDarkMode ? Colors.black : Colors.mediumGray, 
   };
 
   return (
@@ -86,6 +87,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 90,
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
-   
+    elevation: 10, // Add shadow elevation for better visibility
   },
 });

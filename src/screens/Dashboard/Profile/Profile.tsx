@@ -16,7 +16,7 @@ const ProfileScreen = ({navigation}:any) => {
   }, [systemColorScheme, dispatch]);
 
   const user = {
-    name: 'John Doe',
+    name: 'Sakshi Wanode',
     age: 28,
     dob: '1995-05-10',
     aadhaar: '1234-5678-9012',

@@ -20,7 +20,7 @@ const Colors = {
   darkInputBackground: '#333', 
   lightInputBackground: '#fff',
   cardBackground: '#f9f9f9',
-  
+  cardBackgroundDark: '#1E1E1E',
   };
   
   const FontSize = {

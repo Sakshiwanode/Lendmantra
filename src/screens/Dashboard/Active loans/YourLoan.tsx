@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   useColorScheme,
+  TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { isDarkTheme, theme } from '../../../Redux/AuthSlice';
@@ -20,19 +21,39 @@ const YourLoanScreen = ({navigation}:any) => {
     dispatch(theme(systemColorScheme));
   }, [systemColorScheme, dispatch]);
 
-  const renderHorizontalCard = ({ item }:any) => (
-    <View style={[styles.smallCard, { backgroundColor: isDarkMode ? Colors.darkInputBackground : Colors.cardBackground }]}>
-      <Text style={[styles.smallCardText, { color: isDarkMode ? Colors.white : Colors.black }]}>
-        {item.name}
-      </Text>
-    </View>
-  );
+  
 
   const horizontalCards = [
-    { id: '1', name: 'Loan EMI' },
-    { id: '2', name: 'Repayment Progress' },
-    { id: '3', name: 'Calculate EMI' },
+    { id: '1', name: 'Loan EMI', screen: 'LoanEMI' },
+    { id: '2', name: 'Repayment Progress', screen: 'RepaymentProgress' },
+    { id: '3', name: 'Calculate EMI', screen: 'EMICalculator' },
   ];
+
+
+  const renderHorizontalCard = ({ item }: any) => (
+    <TouchableOpacity
+      style={[
+        styles.smallCard,
+        {
+          backgroundColor: isDarkMode
+            ? Colors.darkInputBackground
+            : Colors.cardBackground,
+        },
+      ]}
+    
+      onPress={() => navigation.navigate(item.screen)} 
+    >
+      <Text
+        style={[
+          styles.smallCardText,
+          { color: isDarkMode ? Colors.white : Colors.black },
+        ]}
+      >
+        {item.name}
+      </Text>
+    </TouchableOpacity>
+  );
+
 
   return (
     <View style={[styles.container, { backgroundColor: isDarkMode ? Colors.darkBackground : Colors.lightBackground }]}>
@@ -99,6 +120,19 @@ const YourLoanScreen = ({navigation}:any) => {
           </Text>
         </View>
       </View>
+      <View style={[styles.Paymentcard, { backgroundColor: isDarkMode ? Colors.darkInputBackground : Colors.cardBackground }]}>
+        <Text style={[styles.historyText, { color: isDarkMode ? Colors.white : Colors.black }]}>
+          March Repayment
+        </Text>
+        <View style={styles.row}>
+          <Text style={[styles.rowText, { color: isDarkMode ? Colors.white : Colors.black }]}>
+            Date: 23/12/2024
+          </Text>
+          <Text style={[styles.rowText, { color: isDarkMode ? Colors.white : Colors.black }]}>
+            Amount: $3,445,557
+          </Text>
+        </View>
+      </View>
       
     </View>
   );
@@ -120,7 +154,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginTop:30,
-    paddingTop:150,
+    paddingTop:100,
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
@@ -128,6 +162,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
+    
   },
   Paymentcard: {
    

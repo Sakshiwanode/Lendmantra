@@ -8,14 +8,12 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {useColorScheme} from 'react-native';
 import {isDarkTheme, theme} from '../../../Redux/AuthSlice';
 import {Colors, FontSize} from '../../../constants/Colors';
-
 
 const HomeScreen = ({userName = 'UserName', navigation}: any) => {
   const dispatch = useDispatch();
@@ -38,55 +36,82 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
   }, []);
 
   const loanDraws = [
-    {id: '1', name: 'Personal Loan', status: 'Approved', duration: '12 Months', progress: 75},
-    {id: '2', name: 'Car Loan', status: 'Pending', duration: '6 Months', progress: 50},
-    {id: '3', name: 'Home Loan', status: 'Rejected', duration: '24 Months', progress: 30},
+    {
+      id: '1',
+      name: 'Personal Loan',
+      status: 'Approved',
+      duration: '12 Months',
+      progress: 75,
+    },
+    {
+      id: '2',
+      name: 'Car Loan',
+      status: 'Pending',
+      duration: '6 Months',
+      progress: 50,
+    },
+    {
+      id: '3',
+      name: 'Home Loan',
+      status: 'Rejected',
+      duration: '24 Months',
+      progress: 30,
+    },
   ];
-  const renderLoanDrawsCard = ({ item }: any) => {
+  const renderLoanDrawsCard = ({item}: any) => {
     return (
-      <View style={styles.loanDrawCard}>
-        <View style={{ width: 80, height: 80, justifyContent: 'center', alignItems: 'center' }}>
-        
-            size={80} // The size of the circle
-            progress={item.progress / 100} // The progress value (needs to be between 0 and 1)
-            color={Colors.blue} // The color of the progress circle
-            borderWidth={8} // Border thickness
-            shadowColor={Colors.lightGray} // Shadow color of the circle
-            bgColor={isDarkMode ? Colors.darkInputBackground : Colors.cardBackground} // Background color of the circle
-         
+      <View
+        style={[
+          styles.loanDrawCard,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.cardBackgroundDark
+              : Colors.cardBackground,
+          },
+        ]}>
+        <View
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          size={80}
+          progress={item.progress / 100}
+          color={Colors.blue}
+          borderWidth={8}
+          shadowColor={Colors.lightGray}
+          bgColor=
+          {isDarkMode ? Colors.darkInputBackground : Colors.cardBackground}
           <Text style={styles.progressText}>{`${item.progress}%`}</Text>
         </View>
-  
+
         <View style={styles.loanDetails}>
           <Text
             style={[
               styles.boldText,
-              { color: isDarkMode ? Colors.white : Colors.black },
-            ]}
-          >
+              {color: isDarkMode ? Colors.white : Colors.black},
+            ]}>
             {item.name}
           </Text>
           <Text
             style={[
               styles.loanStatusText,
-              { color: isDarkMode ? Colors.white : Colors.black },
-            ]}
-          >
+              {color: isDarkMode ? Colors.white : Colors.black},
+            ]}>
             {item.status}
           </Text>
           <Text
             style={[
               styles.loanDurationText,
-              { color: isDarkMode ? Colors.white : Colors.black },
-            ]}
-          >
+              {color: isDarkMode ? Colors.white : Colors.black},
+            ]}>
             {item.duration}
           </Text>
         </View>
       </View>
     );
   };
-  
 
   const renderProgressBarDetail = () => {
     return (
@@ -95,7 +120,7 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
           styles.infoCard,
           {
             backgroundColor: isDarkMode
-              ? Colors.darkInputBackground
+              ? Colors.cardBackgroundDark
               : Colors.cardBackground,
           },
         ]}>
@@ -137,9 +162,12 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: isDarkMode ? '#292929' : '#EDEDED'},
+      ]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {/* Top Section */}
       <View
         style={[
           styles.topSection,
@@ -176,9 +204,28 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
       </View>
 
       {/* Loan Cards */}
-      <View style={styles.card}>
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.smallCard}>
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.cardBackgroundDark
+              : Colors.cardBackground,
+          },
+        ]}>
+        <View
+          style={
+            styles.row}>
+            
+          <TouchableOpacity
+            style={[
+              styles.smallCard,
+              {
+                backgroundColor: isDarkMode
+                  ? Colors.darkBackground
+                  : Colors.lightBackground,
+              },
+            ]}>
             <Text
               style={[
                 styles.boldText,
@@ -187,7 +234,15 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
               Personal Loan
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.smallCard}>
+          <TouchableOpacity
+            style={[
+              styles.smallCard,
+              {
+                backgroundColor: isDarkMode
+                  ? Colors.darkBackground
+                  : Colors.lightBackground,
+              },
+            ]}>
             <Text
               style={[
                 styles.boldText,
@@ -197,15 +252,18 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.applyButton}
-          onPress={() => navigation.navigate('YourLoan')} >
+        <TouchableOpacity
+          
+          onPress={() => navigation.navigate('ApplyNewLoan')}>
           <Text
             style={[
+              styles.applyButton,
               styles.buttonText,
-              {color: isDarkMode ? Colors.white : Colors.black},
-            
+              {
+                color: isDarkMode ? Colors.white : Colors.black,
+                backgroundColor: isDarkMode ? Colors.primary : Colors.primary,
+              },
             ]}>
-              
             Apply New Loan
           </Text>
         </TouchableOpacity>
@@ -241,8 +299,15 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
         Other Details
       </Text>
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => navigation.navigate('RepaymentHistory')}>
+        style={[
+          styles.card,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.cardBackgroundDark
+              : Colors.cardBackground,
+          },
+        ]}
+        onPress={() => navigation.navigate('LoanEMI')}>
         <View style={styles.rows}>
           <Ionicons
             name="time-outline"
@@ -270,8 +335,15 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => navigation.navigate('RepaymentHistory')}>
+        style={[
+          styles.card,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.cardBackgroundDark
+              : Colors.cardBackground,
+          },
+        ]}
+        onPress={() => navigation.navigate('ClosedLoan')}>
         <View style={styles.rows}>
           <Ionicons
             name="checkmark-circle"
@@ -300,8 +372,15 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => navigation.navigate('RepaymentHistory')}>
+        style={[
+          styles.card,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.cardBackgroundDark
+              : Colors.cardBackground,
+          },
+        ]}
+        onPress={() => navigation.navigate('UpcomingEmi')}>
         <View style={styles.rows}>
           <Ionicons
             name="hand-left"
@@ -318,7 +397,7 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
               Upcoming EMi
             </Text>
             <Text style={[{color: isDarkMode ? Colors.white : Colors.black}]}>
-              View  Upcoming EMi
+              View Upcoming EMi
             </Text>
           </View>
           <Ionicons
@@ -328,8 +407,6 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
           />
         </View>
       </TouchableOpacity>
-      
-      
     </View>
   );
 };
@@ -340,6 +417,8 @@ const styles = StyleSheet.create({
   },
   topSection: {
     padding: 10,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   headerIcon: {
     flexDirection: 'row',
@@ -368,7 +447,7 @@ const styles = StyleSheet.create({
     paddingLeft: 90,
   },
   card: {
-    padding:5,
+    padding: 5,
     paddingBottom: 10,
     margin: 1,
     borderRadius: 8,
@@ -390,7 +469,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   applyButton: {
-    marginTop: 1,
     padding: 12,
     borderRadius: 8,
     backgroundColor: Colors.white,
@@ -401,9 +479,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subHeading: {
-   marginBottom:10,
+    marginBottom: 20,
     paddingLeft: 20,
-    fontSize: FontSize.subHeading,
+    fontSize: FontSize.large,
     fontWeight: 'bold',
   },
   onTrackText: {
@@ -416,7 +494,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: Colors.cardBackground,
     alignItems: 'center',
-    height:180,
+    height: 180,
   },
 
   boldText: {
@@ -424,7 +502,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
-    paddingTop:-20,
+    paddingTop: -20,
   },
   loanStatusText: {
     fontSize: FontSize.small,

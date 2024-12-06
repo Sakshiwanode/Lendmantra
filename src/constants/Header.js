@@ -18,6 +18,7 @@ const Header = ({ navigation }) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
+     
         <Icon
           name="arrow-back"
           size={24}
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center', 
     alignItems: 'flex-start', 
-    // backgroundColor: 'transparent', 
+  
   },
 });
 
