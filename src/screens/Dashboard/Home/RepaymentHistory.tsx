@@ -12,7 +12,7 @@ import { isDarkTheme, theme } from '../../../Redux/AuthSlice';
 import { Colors, FontSize } from '../../../constants/Colors';
 import Header from '../../../constants/Header';
 
-const RepaymentHistoryScreen= ({navigation}:any) => {
+const  RepaymentHistoryScreen= ({navigation}:any) => {
   const dispatch = useDispatch();
   const systemColorScheme = useColorScheme();
   const isDarkMode = useSelector(isDarkTheme);

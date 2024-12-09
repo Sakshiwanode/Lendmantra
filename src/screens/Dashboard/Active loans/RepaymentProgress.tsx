@@ -1,116 +1,89 @@
-// import React from 'react';
-// import { View, Text, StyleSheet } from 'react-native';
-// import ProgressCircle from 'react-native-progress-circle'; 
-// import { Colors, FontSize } from '../../../constants/Colors';
-
-// const RepaymentHistoryScreen = () => {
-
-
-//   return (
-//     <View style={styles.container}>
-//       <View style={[styles.card, { backgroundColor: Colors.cardBackground }]}>
-//         <ProgressCircle
-//           percent={30} 
-//           radius={50} 
-//           borderWidth={8} 
-//           color={Colors.primary} 
-//           shadowColor={Colors.gray} 
-//           bgColor={Colors.lightBackground} 
-//         >
-//           <Text style={styles.progressText}>{`${percent}%`}</Text>
-//         </ProgressCircle>
-//         <Text style={[styles.completedText, { color: Colors.primary }]}>
-//           {`${progress}% Completed`}
-//         </Text>
-//       </View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: Colors.lightBackground, // Background color from the theme
-//   },
-//   card: {
-//     width: 300,
-//     height: 300,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     borderRadius: 10,
-//     padding: 20,
-//     elevation: 5, // Add shadow for the card
-//     shadowColor: Colors.gray, // Card shadow color
-//     shadowOffset: { width: 0, height: 4 },
-//     shadowOpacity: 0.1,
-//     shadowRadius: 10,
-//   },
-//   progressText: {
-//     fontSize: FontSize.large,
-//     color: Colors.primary,
-//     fontWeight: 'bold',
-//   },
-//   completedText: {
-//     marginTop: 10,
-//     fontSize: FontSize.medium,
-//     fontWeight: 'bold',
-//   },
-// });
-
-// export default RepaymentHistoryScreen;
-
-import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  useColorScheme,
-  TouchableOpacity,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { isDarkTheme, theme } from '../../../Redux/AuthSlice';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import * as Progress from 'react-native-progress';
+import { Colors, FontSize } from '../../../constants/Colors';
 import Header from '../../../constants/Header';
-import { Colors } from '../../../constants/Colors';
 
-const RepaymentHistoryScreen = ({navigation}:any) => {
-  const dispatch = useDispatch();
-  const systemColorScheme = useColorScheme();
-  const isDarkMode = useSelector(isDarkTheme);
+const RepaymentProgressScreen = ({navigation}:any) => {
+  const progress = 0.3; 
 
-  useEffect(() => {
-    dispatch(theme(systemColorScheme));
-  }, [systemColorScheme, dispatch]);
-  
   return (
-    <View style={[styles.container, { backgroundColor: isDarkMode ? Colors.darkBackground : Colors.lightBackground }]}>
-    <View style={styles.headerWrapper}>
+    <View style={styles.container}>
+        <View style={styles.headerWrapper}>
        <Header navigation={navigation} />
      </View>
-    
+      <View style={[styles.card, { backgroundColor: Colors.cardBackground }]}>
+        <Text style={styles.heading}>Your Repayment Progress Status</Text>
+        <Progress.Circle
+          style={styles.progress}
+          progress={progress}
+          size={100}
+          thickness={8}
+          color={Colors.primary}
+          unfilledColor={Colors.gray}
+          borderWidth={0}
+          
+        />
+        <Text style={styles.progressText}>{`30%`}</Text>
+        <Text style={[styles.completedText, { color: Colors.primary }]}>
+          {`30% Completed`}
+        </Text>
+      </View>
     </View>
-  )
-}
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.lightBackground,
+  },
+  card: {
+    width: 300,
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    padding: 20,
+    elevation: 5,
+    shadowColor: Colors.gray,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+  },
+  heading: {
+    fontSize: FontSize.large,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  progress: {
+    marginBottom: 10,
+  },
+  progressText: {
+    fontSize: FontSize.large,
+    color: Colors.primary,
+    fontWeight: 'bold',
+    position: 'absolute',
+    top: '55%',
+    textAlign: 'center',
+    transform: [{ translateY: -10 }],
+  },
+  completedText: {
+    marginTop: 10,
+    fontSize: FontSize.medium,
+    fontWeight: 'bold',
   },
   headerWrapper: {
-    position: 'absolute', 
-    top: 10,
-    left: 0,
-    right: 0,
-  },
+        position: 'absolute',
+        top: 10,
+        left: 0,
+        right: 0,
+      },
 });
-export default RepaymentHistoryScreen;
 
-
-
-
-
-
-
+export default RepaymentProgressScreen;
 

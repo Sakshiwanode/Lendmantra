@@ -44,7 +44,7 @@ useEffect(() => {
           <View
             style={[
               styles.card,
-              { backgroundColor: isDarkMode ? Colors.white: Colors.secondary },
+              { backgroundColor: isDarkMode ? Colors.darkInputBackground: Colors.lightInputBackground },
             ]}>
             <DetailRow label="Bank Name" value="ABC Bank" isDarkMode={isDarkMode} />
             <DetailRow label="Account Holder Name" value="John Doe" isDarkMode={isDarkMode} />
@@ -89,10 +89,10 @@ useEffect(() => {
 
 const DetailRow = ({ label, value, isDarkMode }: any) => (
   <Text style={[styles.detailText, { color: isDarkMode ? Colors.white : Colors.black }]}>
-    <Text style={[styles.label, { color: isDarkMode ? Colors.accent : Colors.primary }]}>
+    <Text style={[styles.label, { color: isDarkMode ? Colors.primary : Colors.primary }]}>
       {label}: 
     </Text>
-    <Text style={[styles.value, { color: isDarkMode ? Colors.black : Colors.black }]}>
+    <Text style={[styles.value, { color: isDarkMode ? Colors.white : Colors.black }]}>
       {value}
     </Text>
   </Text>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   card: {
-    borderRadius: 10,
+    borderRadius: 23,
     padding: 20,
     marginBottom: 20,
   },
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007BFF',
     paddingVertical: 13,
     paddingHorizontal: 15,
-    borderRadius: 23,
+    borderRadius: 12,
     alignSelf: 'center',
     marginBottom: 20,
     width: '100%',

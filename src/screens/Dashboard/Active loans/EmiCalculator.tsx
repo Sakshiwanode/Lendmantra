@@ -13,7 +13,7 @@ const EmiCalculatorScreen = ({ navigation }: any) => {
   const [loanAmount, setLoanAmount] = useState('');
   const [loanTenure, setLoanTenure] = useState('');
   const [interestRate, setInterestRate] = useState('');
-  const [tenureUnit, setTenureUnit] = useState('yr'); // 'yr' or 'mo'
+  const [tenureUnit, setTenureUnit] = useState('yr'); 
 
   useEffect(() => {
     dispatch(theme(systemColorScheme));

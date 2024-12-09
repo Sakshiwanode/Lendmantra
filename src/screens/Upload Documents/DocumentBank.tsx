@@ -23,12 +23,11 @@ const DocumentBankScreen = ({ navigation }: any) => {
   }, [systemColorScheme, dispatch]);
 
   const cardData = [
-    { id: '1', name: 'User Picture', icon: 'person' },
-    { id: '2', name: 'Aadhar Number', icon: 'badge' },
-    { id: '3', name: 'Pan Card', icon: 'credit-card' },
-    { id: '4', name: 'Residence Proof', icon: 'home' },
-    { id: '5', name: 'Income Proof', icon: 'attach-money' },
-    { id: '6', name: 'Bank Statement', icon: 'account-balance' },
+   
+   
+    { id: '1', name: 'Residence Proof', icon: 'home' },
+    { id: '2', name: 'Income Proof', icon: 'attach-money' },
+   
   ];
 
   const renderCard = ({ item }: any) => (
@@ -85,10 +84,10 @@ const DocumentBankScreen = ({ navigation }: any) => {
         data={cardData}
         renderItem={renderCard}
         keyExtractor={(item) => item.id}
-        numColumns={2}
+      
         horizontal={false}
         contentContainerStyle={styles.flatList}
-        columnWrapperStyle={styles.row}
+       
         showsVerticalScrollIndicator={false}
       />
       <TouchableOpacity

@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useColorScheme} from 'react-native';
 import {isDarkTheme, theme} from '../../../Redux/AuthSlice';
 import {Colors, FontSize} from '../../../constants/Colors';
+import * as Progress from 'react-native-progress';
 
 const HomeScreen = ({userName = 'UserName', navigation}: any) => {
   const dispatch = useDispatch();
@@ -58,7 +59,20 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
       progress: 30,
     },
   ];
-  const renderLoanDrawsCard = ({item}: any) => {
+  const renderLoanDrawsCard = ({ item }: any) => {
+   
+    const filledColor =
+      item.progress >= 75
+        ? Colors.blue
+        : item.progress >= 50
+        ? Colors.blue
+        : Colors.blue;
+  
+    const unfilledColor =
+      item.progress >= 30
+        ? Colors.gray
+        : Colors.accent; 
+  
     return (
       <View
         style={[
@@ -68,51 +82,57 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
               ? Colors.cardBackgroundDark
               : Colors.cardBackground,
           },
-        ]}>
+        ]}
+      >
         <View
           style={{
             width: 80,
             height: 80,
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
-          size={80}
-          progress={item.progress / 100}
-          color={Colors.blue}
-          borderWidth={8}
-          shadowColor={Colors.lightGray}
-          bgColor=
-          {isDarkMode ? Colors.darkInputBackground : Colors.cardBackground}
+          }}
+        >
+          <Progress.Circle
+            progress={item.progress / 100} 
+            size={80}
+            thickness={5}
+            color={filledColor}
+            unfilledColor={unfilledColor}
+            borderWidth={0}
+          />
           <Text style={styles.progressText}>{`${item.progress}%`}</Text>
         </View>
-
+  
         <View style={styles.loanDetails}>
           <Text
             style={[
               styles.boldText,
-              {color: isDarkMode ? Colors.white : Colors.black},
-            ]}>
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
             {item.name}
           </Text>
           <Text
             style={[
               styles.loanStatusText,
-              {color: isDarkMode ? Colors.white : Colors.black},
-            ]}>
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
             {item.status}
           </Text>
           <Text
             style={[
               styles.loanDurationText,
-              {color: isDarkMode ? Colors.white : Colors.black},
-            ]}>
+              { color: isDarkMode ? Colors.white : Colors.black },
+            ]}
+          >
             {item.duration}
           </Text>
         </View>
       </View>
     );
   };
-
+  
   const renderProgressBarDetail = () => {
     return (
       <View
@@ -120,8 +140,8 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
           styles.infoCard,
           {
             backgroundColor: isDarkMode
-              ? Colors.cardBackgroundDark
-              : Colors.cardBackground,
+              ? Colors.darkBackground
+              : Colors.lightBackground,
           },
         ]}>
         <Text
@@ -129,7 +149,7 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
             styles.cardText,
             {color: isDarkMode ? Colors.white : Colors.black},
           ]}>
-          Loan Status Progress
+        Applied Loan Progress Status
         </Text>
         <View style={styles.progressBarContainer}>
           <View
@@ -152,7 +172,7 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
         </View>
         <Text
           style={[
-            styles.cardText,
+            styles.cardTextProgress,
             {color: isDarkMode ? Colors.white : Colors.black},
           ]}>
           70% Completed
@@ -205,69 +225,92 @@ const HomeScreen = ({userName = 'UserName', navigation}: any) => {
 
       {/* Loan Cards */}
       <View
+  style={[
+    styles.card,
+    {
+      backgroundColor: isDarkMode
+        ? Colors.cardBackgroundDark
+        : Colors.cardBackground,
+    },
+  ]}
+>
+  <View style={styles.row}>
+    {/* Personal Loan Icon */}
+    <View style={styles.iconContainer}>
+      <TouchableOpacity
         style={[
-          styles.card,
+          styles.smallCard,
           {
             backgroundColor: isDarkMode
-              ? Colors.cardBackgroundDark
-              : Colors.cardBackground,
+              ? Colors.darkBackground
+              : Colors.lightBackground,
           },
-        ]}>
-        <View
-          style={
-            styles.row}>
-            
-          <TouchableOpacity
-            style={[
-              styles.smallCard,
-              {
-                backgroundColor: isDarkMode
-                  ? Colors.darkBackground
-                  : Colors.lightBackground,
-              },
-            ]}>
-            <Text
-              style={[
-                styles.boldText,
-                {color: isDarkMode ? Colors.white : Colors.black},
-              ]}>
-              Personal Loan
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.smallCard,
-              {
-                backgroundColor: isDarkMode
-                  ? Colors.darkBackground
-                  : Colors.lightBackground,
-              },
-            ]}>
-            <Text
-              style={[
-                styles.boldText,
-                {color: isDarkMode ? Colors.white : Colors.black},
-              ]}>
-              Business Loan
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          
-          onPress={() => navigation.navigate('ApplyNewLoan')}>
-          <Text
-            style={[
-              styles.applyButton,
-              styles.buttonText,
-              {
-                color: isDarkMode ? Colors.white : Colors.black,
-                backgroundColor: isDarkMode ? Colors.primary : Colors.primary,
-              },
-            ]}>
-            Apply New Loan
-          </Text>
-        </TouchableOpacity>
-      </View>
+        ]}
+        onPress={()=>navigation.navigate('PersonalLoan')}
+      >
+        <Ionicons name="cash-outline"size={30} color={isDarkMode ? Colors.blue : Colors.blue} />
+      </TouchableOpacity>
+      <Text
+        style={[
+          styles.iconText,
+          { color: isDarkMode ? Colors.white : Colors.black },
+        ]}
+      >
+        Personal Loan
+      </Text>
+    </View>
+
+    {/* Business Loan Icon */}
+    <View style={styles.iconContainer}>
+      <TouchableOpacity
+        style={[
+          styles.smallCard,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.darkBackground
+              : Colors.lightBackground,
+          },
+        ]}
+        onPress={()=>navigation.navigate('BusinessLoan')}
+      >
+        <Ionicons name="business-outline" size={30} color={isDarkMode ?  Colors.blue : Colors.blue} />
+      </TouchableOpacity>
+      <Text
+        style={[
+          styles.iconText,
+          { color: isDarkMode ? Colors.white : Colors.black },
+        ]}
+      >
+        Business Loan
+      </Text>
+    </View>
+
+   
+    <View style={styles.iconContainer}>
+      <TouchableOpacity
+        style={[
+          styles.smallCard,
+          {
+            backgroundColor: isDarkMode
+              ? Colors.darkBackground
+              : Colors.lightBackground,
+          },
+        ]}
+        onPress={() => navigation.navigate('ApplyNewLoan')}
+      >
+        <Ionicons name="send-outline" size={30} color={isDarkMode ? Colors.blue : Colors.blue} />
+      </TouchableOpacity>
+      <Text
+        style={[
+          styles.iconText,
+          { color: isDarkMode ? Colors.white : Colors.black },
+        ]}
+      >
+        Apply Now
+      </Text>
+    </View>
+  </View>
+</View>
 
       {/* Loan Progress Bar */}
       {renderProgressBarDetail()}
@@ -446,6 +489,10 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     paddingLeft: 90,
   },
+  Progresscircle:{
+    top:10,
+
+  },
   card: {
     padding: 5,
     paddingBottom: 10,
@@ -453,30 +500,29 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: Colors.cardBackground,
     alignItems: 'center',
-    marginVertical: 4,
-    marginHorizontal: 20,
+    marginVertical: 5,
+    marginHorizontal: 13,
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    padding: 10,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    margin: 10,
+  },
+  iconText: {
+    marginTop: 5,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   smallCard: {
-    margin: 4,
-    padding: 30,
-    borderRadius: 8,
-    backgroundColor: Colors.white,
+    padding: 15,
+    borderRadius: 10,
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  applyButton: {
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: FontSize.medium,
-    fontWeight: 'bold',
   },
   subHeading: {
     marginBottom: 20,
@@ -490,11 +536,13 @@ const styles = StyleSheet.create({
   },
   loanDrawCard: {
     padding: 16,
-    margin: 8,
+    margin: 5,
     borderRadius: 8,
     backgroundColor: Colors.cardBackground,
     alignItems: 'center',
     height: 180,
+   
+   
   },
 
   boldText: {
@@ -502,7 +550,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
-    paddingTop: -20,
+  
   },
   loanStatusText: {
     fontSize: FontSize.small,
@@ -520,7 +568,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.cardBackground,
     alignItems: 'center',
     marginVertical: 15,
-    marginHorizontal: 20,
+    marginHorizontal: 13,
   },
   progressBarContainer: {
     flexDirection: 'row',
@@ -543,8 +591,13 @@ const styles = StyleSheet.create({
   },
 
   cardText: {
+    paddingRight:170,
     fontSize: FontSize.medium,
     fontWeight: 'bold',
+  },
+  cardTextProgress:{
+paddingLeft:250,
+fontWeight: 'bold',
   },
   iconLeftclock: {
     paddingRight: 100,
@@ -560,6 +613,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   progressText: {
+    bottom:50,
     fontSize: FontSize.medium,
     fontWeight: 'bold',
     color: Colors.blue,

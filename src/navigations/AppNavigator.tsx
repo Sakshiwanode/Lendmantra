@@ -22,9 +22,12 @@ import EmiCalcultorScreeen from '../screens/Dashboard/Active loans/EmiCalculator
 import ClosedLoanScreen from '../screens/Dashboard/Home/ClosedLoan';
 import OverDueLoanScreen from '../screens/Dashboard/Home/OverDueLoan';
 import RequestedLoanScreen from '../screens/Dashboard/Home/RequestedLoan';
+import UpcomingEmiScreen from '../screens/Dashboard/Home/UpcomingEmi';
 import RepaymentProgressScreen from '../screens/Dashboard/Active loans/RepaymentProgress';
 import RepaymentHistoryScreen from '../screens/Dashboard/Home/RepaymentHistory';
-import UpcomingEmiScreen from '../screens/Dashboard/Home/UpcomingEmi';
+import PersonalLoanScreen from '../screens/Dashboard/Home/PersonalLoan';
+import BusinessLoanScreen from '../screens/Dashboard/Home/BusinessLoan';
+
 
 
 
@@ -59,6 +62,8 @@ const AppNavigator = () => {
 <Stack.Screen name="RepaymentProgress" component={RepaymentProgressScreen} options={{ headerShown: false }} />
 <Stack.Screen name="RepaymentHistory" component={RepaymentHistoryScreen} options={{ headerShown: false }} />
 <Stack.Screen name="UpcomingEmi" component={UpcomingEmiScreen} options={{ headerShown: false }} />
+<Stack.Screen name="PersonalLoan" component={PersonalLoanScreen} options={{ headerShown: false }} />
+<Stack.Screen name="BusinessLoan" component={BusinessLoanScreen} options={{ headerShown: false }} />
 
       </Stack.Navigator>
 

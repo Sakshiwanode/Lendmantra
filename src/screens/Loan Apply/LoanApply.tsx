@@ -76,13 +76,13 @@ const LoanApplyScreen = ({ navigation }: any) => {
         </Text>
 
         <View style={styles.inputContainer}>
-          <Text style={[styles.currencySymbol, { color: isDarkMode ? Colors.white : Colors.black}]}>
+          <Text style={[styles.currencySymbol, { color: isDarkMode ? Colors.black : Colors.black}]}>
             ₹
           </Text>
           <TextInput
             style={[
               styles.loanInput,
-              { color: isDarkMode ? Colors.white : Colors.black },
+              { color: isDarkMode ? Colors.black : Colors.black },
             ]}
             keyboardType="numeric"
             value={String(loanAmount)}
